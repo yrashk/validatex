@@ -15,6 +15,14 @@ defrecord Range,
           to: nil,
           exclusive: false
 
+defrecord Format,
+          allow_undefined: false,
+          allow_nil: false,
+          allow_list: false,
+          allow_empty: false,
+          re: ".*",
+          default: ""
+
 defprotocol Validate do
   @only [Record, Any]
   def valid?(validator, data)
@@ -73,6 +81,29 @@ defimpl Validate, for: Range do
   def valid?(R[to: to, exclusive: true], v) when to !== nil and v >= to, do: :greater
   def valid?(R[], _), do: true
 
+end
+
+defimpl Validate, for: Format do
+  refer Format, as: F
+  def valid?(F[allow_undefined: false], :undefined), do: :undefined_not_allowed
+  def valid?(F[allow_undefined: true, default: default] = v, :undefined), do: valid?(v, default)
+  def valid?(F[allow_nil: false], nil), do: :nil_not_allowed
+  def valid?(F[allow_nil: true, default: default] = v, nil), do: valid?(v, default)
+
+  def valid?(F[allow_list: false], l) when is_list(l), do: :list_not_allowed
+  def valid?(F[allow_list: true] = v, l) when is_list(l), do: valid?(v, iolist_to_binary(l))
+
+  def valid?(F[allow_empty: false], ""), do: :empty_not_allowed
+  
+  def valid?(F[re: {Regex, _, _, _} = re], s) when is_binary(s) do
+      if Regex.match?(re, s), do: true, else: :no_match
+  end
+
+  def valid?(F[re: re]=v, s) when is_binary(re) do
+      valid?(v.re(%r"#{re}"), s)
+  end
+
+  def valid?(F[], _), do: :string_expected
 end
 
 defimpl Validate, for: Any do
