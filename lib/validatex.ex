@@ -10,6 +10,11 @@ defrecord Numericality,
           allow_float: true,
           default: 0
 
+defrecord Range,
+          from: nil,
+          to: nil,
+          exclusive: false
+
 defprotocol Validate do
   def valid?(validator, data)
 end
@@ -50,6 +55,22 @@ defimpl Validate, for: Numericality do
   def valid?(N[ allow_float: false ], f) when is_float(f), do: :float_not_allowed
   def valid?(N[], v) when is_number(v), do: true
   def valid?(N[], _), do: :number_expected
+
+end
+
+defimpl Validate, for: Range do
+  refer Range, as: R
+  def valid?(R[from: nil, to: nil], _), do: true
+  def valid?(R[from: from, to: nil, exclusive: false], v) when from !== nil and v < from, do: :lesser
+  def valid?(R[from: from, to: nil, exclusive: true], v) when from !== nil and v <= from, do: :lesser
+  def valid?(R[from: nil, to: to, exclusive: false], v) when to !== nil and v > to, do: :greater
+  def valid?(R[from: nil, to: to, exclusive: true], v) when to !== nil and v >= to, do: :greater
+  def valid?(R[to: to, exclusive: false], v) when to !== nil and v > to, do: :greater
+  def valid?(R[from: from, exclusive: false], v) when from !== nil and v < from, do: :lesser
+  def valid?(R[from: from, exclusive: true], v) when from !== nil and v <= from, do: :lesser
+  def valid?(R[to: to, exclusive: false], v) when to !== nil and v > to, do: :greater
+  def valid?(R[to: to, exclusive: true], v) when to !== nil and v >= to, do: :greater
+  def valid?(R[], _), do: true
 
 end
 
