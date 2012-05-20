@@ -1,5 +1,16 @@
 defmodule Validatex do
 
+def validate(plan) do
+    results = lc {name, value, spec} in plan do
+      {name, value, spec, Validatex.Validate.valid?(spec, value)}
+    end
+    only_errors = fn do
+        {_, _, _, true} -> false
+        _ -> true
+    end
+    Enum.filter results, only_errors
+end
+
 defrecord Numericality, 
           allow_undefined: false,
           allow_nil: false,
