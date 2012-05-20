@@ -23,6 +23,9 @@ defrecord Format,
           re: ".*",
           default: ""
 
+defrecord Length,
+          is: nil
+
 defprotocol Validate do
   @only [Record, Any]
   def valid?(validator, data)
@@ -106,10 +109,27 @@ defimpl Validate, for: Format do
   def valid?(F[], _), do: :string_expected
 end
 
+defimpl Validate, for: Length do
+  refer Length, as: L
+
+  def valid?(L[is: validator], l) when is_list(l) do
+      Validatex.Validate.valid?(validator, length(l))
+  end
+
+  def valid?(L[is: validator], v) when is_binary(v) or is_tuple(v) do
+      Validatex.Validate.valid?(validator, size(v))
+  end
+
+  def valid?(L[is: validator], _) do
+      Validatex.Validate.valid?(validator)
+  end
+
+end
+
 defimpl Validate, for: Any do
   def valid?(a,a), do: true
-  def valid?(a,b) when a < b, do: :lesser
-  def valid?(a,b) when b < a, do: :greater
+  def valid?(a,b) when a > b, do: :lesser
+  def valid?(a,b) when b > a, do: :greater
 end
 
 end
