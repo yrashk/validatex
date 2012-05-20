@@ -16,6 +16,7 @@ defrecord Range,
           exclusive: false
 
 defprotocol Validate do
+  @only [Record, Any]
   def valid?(validator, data)
 end
 
@@ -72,6 +73,12 @@ defimpl Validate, for: Range do
   def valid?(R[to: to, exclusive: true], v) when to !== nil and v >= to, do: :greater
   def valid?(R[], _), do: true
 
+end
+
+defimpl Validate, for: Any do
+  def valid?(a,a), do: true
+  def valid?(a,b) when a < b, do: :lesser
+  def valid?(a,b) when b < a, do: :greater
 end
 
 end
