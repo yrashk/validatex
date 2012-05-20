@@ -12,7 +12,7 @@ validators.
 
 For example:
 
-```ruby
+```elixir
 iex> refer Validatex, as: V
 []
 iex> V.Validate.valid?(V.Range.new(to: 10), 1)
@@ -23,7 +23,7 @@ iex> V.Validate.valid?(V.Range.new(to: 0), 1)
 
 Also, if the second argument is not a validator, it will be matched against the first argument:
 
-```ruby
+```elixir
 iex> V.Validate.valid?(1,1)                  
 true
 iex> V.Validate.valid?(2,1)
@@ -37,7 +37,7 @@ Custom Validators
 
 One can define custom validators using by implementing `Validatex.Validate` protocol
 
-```ruby
+```elixir
   defrecord MyValidator, q: nil
 
   defimpl Validatex.Validate, for: MyValidator do
@@ -55,13 +55,13 @@ Instead of running individual validations, you can define so called "validation 
 
 Validation sheet is a list of validations in the following format:
 
-```ruby
+```elixir
 {name, value, spec}
 ```
 
 For example:
 
-```ruby
+```elixir
 [
  {"user.name", username, V.Length.new(is: V.Range.new(from: 3, to: 16))},
  {"user.email", email, V.Length.new(is: V.Range.new(from: 3, to: 255))},
