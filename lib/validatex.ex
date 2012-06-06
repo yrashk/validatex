@@ -1,7 +1,7 @@
 defmodule Validatex do
 
 def validate(plan) do
-    results = lc {name, value, spec} in plan do
+    results = lc {name, value, spec} inlist plan do
       {name, value, spec, Validatex.Validate.valid?(spec, value)}
     end
     only_errors = fn do

@@ -14,7 +14,7 @@ defmodule Validatex.LengthTest do
     tests = [{'a', [{1, true},{2, :lesser}, {0, :greater}, {Range.new(from: 0, to: 2), true}]},
              {"a", [{1, true},{2, :lesser}, {0, :greater}, {Range.new(from: 0, to: 2), true}]},
              {{:a}, [{1, true},{2, :lesser}, {0, :greater}], {Range.new(from: 0, to: 2), true}}]
-    lc {data, cases} in tests, {is, outcome} in cases do
+    lc {data, cases} inlist tests, {is, outcome} inlist cases do
       assert V.valid?(L.new(is: is), data) == outcome
     end
   end
