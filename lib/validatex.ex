@@ -46,7 +46,7 @@ defprotocol Validate do
 end
 
 defimpl Validate, for: Numericality do
-  refer Numericality, as: N
+  alias Numericality, as: N
   def valid?(N[ allow_undefined: false ], :undefined), do: :undefined_not_allowed
   def valid?(N[ allow_undefined: true, default: default ] = v, :undefined), do: valid?(v, default)
 
@@ -85,7 +85,7 @@ defimpl Validate, for: Numericality do
 end
 
 defimpl Validate, for: Range do
-  refer Range, as: R
+  alias Range, as: R
   def valid?(R[from: nil, to: nil], _), do: true
   def valid?(R[from: from, to: nil, exclusive: false], v) when from !== nil and v < from, do: :lesser
   def valid?(R[from: from, to: nil, exclusive: true], v) when from !== nil and v <= from, do: :lesser
@@ -101,7 +101,7 @@ defimpl Validate, for: Range do
 end
 
 defimpl Validate, for: Format do
-  refer Format, as: F
+  alias Format, as: F
   def valid?(F[allow_undefined: false], :undefined), do: :undefined_not_allowed
   def valid?(F[allow_undefined: true, default: default] = v, :undefined), do: valid?(v, default)
   def valid?(F[allow_nil: false], nil), do: :nil_not_allowed
@@ -124,7 +124,7 @@ defimpl Validate, for: Format do
 end
 
 defimpl Validate, for: Length do
-  refer Length, as: L
+  alias Length, as: L
 
   def valid?(L[is: validator], l) when is_list(l) do
       Validatex.Validate.valid?(validator, length(l))
@@ -141,7 +141,7 @@ defimpl Validate, for: Length do
 end
 
 defimpl Validate, for: Type do
-    refer Type, as: T
+    alias Type, as: T
     def valid?(T[ is: :nil], nil), do: true
     def valid?(T[ is: :number ], a) when is_number(a), do: true
     def valid?(T[ is: :integer ], a) when is_integer(a), do: true
@@ -150,7 +150,7 @@ defimpl Validate, for: Type do
     def valid?(T[ is: :atom ], a) when is_atom(a), do: true
     def valid?(T[ is: :binary ], a) when is_binary(a), do: true
     def valid?(T[ is: :string ], a) when is_binary(a), do: true
-    def valid?(T[ is: :reference ], a) when is_reference(a), do: true
+    def valid?(T[ is: :aliasence ], a) when is_reference(a), do: true
     def valid?(T[ is: :function ], a) when is_function(a), do: true
     def valid?(T[ is: :port ], a) when is_port(a), do: true
     def valid?(T[ is: :pid ], a) when is_pid(a), do: true

@@ -2,8 +2,8 @@ Code.require_file "../test_helper", __FILE__
 
 defmodule Validatex.NumericalityTest do
   use ExUnit.Case
-  refer Validatex.Validate, as: V
-  refer Validatex.Numericality, as: N
+  alias Validatex.Validate, as: V
+  alias Validatex.Numericality, as: N
 
   test :undefined do
     assert V.valid?(N.new, :undefined) == :undefined_not_allowed

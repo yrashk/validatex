@@ -2,7 +2,7 @@ Code.require_file "../test_helper", __FILE__
 
 defmodule Validatex.ComparisonTest do
   use ExUnit.Case
-  refer Validatex.Validate, as: V
+  alias Validatex.Validate, as: V
 
   test :all do
     assert V.valid?(1,1)

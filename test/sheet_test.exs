@@ -2,7 +2,7 @@ Code.require_file "../test_helper", __FILE__
 
 defmodule Validatex.SheetTest do
   use ExUnit.Case
-  refer Validatex, as: V
+  alias Validatex, as: V
 
   test :no_errors do
     plan = [{"age", "30", V.Numericality.new(allow_string: true)}]

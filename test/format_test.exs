@@ -2,8 +2,8 @@ Code.require_file "../test_helper", __FILE__
 
 defmodule Validatex.FormatTest do
   use ExUnit.Case
-  refer Validatex.Validate, as: V
-  refer Validatex.Format, as: F
+  alias Validatex.Validate, as: V
+  alias Validatex.Format, as: F
 
   test :undefined do
     assert V.valid?(F.new, :undefined) == :undefined_not_allowed

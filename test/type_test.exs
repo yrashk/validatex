@@ -2,8 +2,8 @@ Code.require_file "../test_helper", __FILE__
 
 defmodule Validatex.TypeTest do
   use ExUnit.Case
-  refer Validatex.Validate, as: V
-  refer Validatex.Type, as: T
+  alias Validatex.Validate, as: V
+  alias Validatex.Type, as: T
 
   test :integer do
     assert V.valid?(T.new(is: :number),1)
@@ -18,7 +18,7 @@ defmodule Validatex.TypeTest do
   test :atom, do: assert V.valid?(T.new(is: :atom), :atom)
   test :binary, do: assert V.valid?(T.new(is: :binary), <<>>)
   test :string, do: assert V.valid?(T.new(is: :string), "")
-  test :ref, do: assert V.valid?(T.new(is: :reference), make_ref())
+  test :ref, do: assert V.valid?(T.new(is: :aliasence), make_ref())
   test :fun, do: assert V.valid?(T.new(is: :function), fn () -> :ok end)
   test :port, do: assert V.valid?(T.new(is: :port), hd(:erlang.ports))
   test :pid, do: assert V.valid?(T.new(is: :pid), Process.self)

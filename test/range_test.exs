@@ -2,8 +2,8 @@ Code.require_file "../test_helper", __FILE__
 
 defmodule Validatex.RangeTest do
   use ExUnit.Case
-  refer Validatex.Validate, as: V
-  refer Validatex.Range, as: R
+  alias Validatex.Validate, as: V
+  alias Validatex.Range, as: R
 
   ## until we can use PropEr in Elixir, lets use some
   ## manual testing (unlike in Validaterl)
