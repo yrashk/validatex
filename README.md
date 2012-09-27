@@ -13,7 +13,7 @@ validators.
 For example:
 
 ```elixir
-iex> refer Validatex, as: V
+iex> alias Validatex, as: V
 []
 iex> V.Validate.valid?(V.Range.new(to: 10), 1)
 true
@@ -41,7 +41,7 @@ One can define custom validators using by implementing `Validatex.Validate` prot
   defrecord MyValidator, q: nil
 
   defimpl Validatex.Validate, for: MyValidator do
-     refer MyValidator, as: V
+     alias MyValidator, as: V
      def valid?(V[], v), do: v
   end
 ```
