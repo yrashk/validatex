@@ -150,7 +150,7 @@ defimpl Validate, for: Type do
     def valid?(T[ is: :atom ], a) when is_atom(a), do: true
     def valid?(T[ is: :binary ], a) when is_binary(a), do: true
     def valid?(T[ is: :string ], a) when is_binary(a), do: true
-    def valid?(T[ is: :aliasence ], a) when is_reference(a), do: true
+    def valid?(T[ is: :reference ], a) when is_reference(a), do: true
     def valid?(T[ is: :function ], a) when is_function(a), do: true
     def valid?(T[ is: :port ], a) when is_port(a), do: true
     def valid?(T[ is: :pid ], a) when is_pid(a), do: true
