@@ -1,5 +1,3 @@
-Code.require_file "../test_helper", __FILE__
-
 defmodule Validatex.NumericalityTest do
   use ExUnit.Case
   alias Validatex.Validate, as: V

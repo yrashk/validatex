@@ -4,7 +4,7 @@ def validate(plan) do
     results = lc {name, value, spec} inlist plan do
       {name, value, spec, Validatex.Validate.valid?(spec, value)}
     end
-    only_errors = fn do
+    only_errors = function do
         {_, _, _, true} -> false
         _ -> true
     end
@@ -112,7 +112,7 @@ defimpl Validate, for: Format do
 
   def valid?(F[allow_empty: false], ""), do: :empty_not_allowed
   
-  def valid?(F[re: {Regex, _, _, _} = re], s) when is_binary(s) do
+  def valid?(F[re: {Regex, _, _, _, _} = re], s) when is_binary(s) do
       if Regex.match?(re, s), do: true, else: :no_match
   end
 

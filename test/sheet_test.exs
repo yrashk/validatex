@@ -1,5 +1,3 @@
-Code.require_file "../test_helper", __FILE__
-
 defmodule Validatex.SheetTest do
   use ExUnit.Case
   alias Validatex, as: V
