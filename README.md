@@ -71,7 +71,7 @@ For example:
 
 Just as an example, if you try to put a string with a non-numeric value into `age`, you'll get this:
 
-```erlang
+```elixir
 iex> V.validate(plan)
 [{"user.age","wrong",Validatex.Numericality[default: 0],:number_expected}]
 ```
