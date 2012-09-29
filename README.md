@@ -1,8 +1,7 @@
 Validatex
 ==========
 
-Validaterl is a simple Elixir library for validating (input) data. Its
-design and code has been almost completely ported from Validaterl (https://github.com/spawngrid/validaterl)
+Validatex is a simple Elixir library for validating (input) data. Its
 
 Validation Primitives
 ---------------------
