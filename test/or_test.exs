@@ -13,7 +13,12 @@ defmodule Validatex.OrTest do
   test :negative do
     is_number = Validatex.Numericality.new
     is_string = Validatex.Type.new(is: :string)
-    assert V.valid?(Or.new(options: [is_number, is_string]), make_ref)
+    assert not V.valid?(Or.new(options: [is_number, is_string]), make_ref)
   end  
+
+  test :non_false do
+    is_atom = Validatex.Type.new(is: :atom, allow_nil: false)
+    assert not V.valid?(Or.new(options: [is_atom]), nil)
+  end
 
 end
