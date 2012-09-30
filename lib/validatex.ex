@@ -43,6 +43,7 @@ defrecord Type,
           allow_undefined: false
 
 defrecord Union, options: []
+defrecord Neg, validation: nil
 
 defprotocol Validate do
   @only [Record, Any]
@@ -182,6 +183,10 @@ defimpl Validate, for: Union do
       _ -> true
     end
   end
+end
+
+defimpl Validate, for: Neg do
+  def valid?(Neg[validation: v],val), do: Validate.valid?(v, val) != true
 end
 
 defimpl Validate, for: Any do
