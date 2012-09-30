@@ -5,5 +5,5 @@ otp_release:
 before_install:
    - git clone https://github.com/elixir-lang/elixir
    - cd elixir && make && cd ..
-before_script: "export PATH=`pwd`/elixir/bin"
+before_script: "export PATH=`pwd`/elixir/bin:$PATH"
 script: mix
