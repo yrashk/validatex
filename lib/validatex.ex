@@ -38,7 +38,9 @@ defrecord Length,
           is: nil
 
 defrecord Type,
-          is: nil
+          is: nil,
+          allow_nil: false,
+          allow_undefined: false
 
 defrecord Or, options: []
 defrecord And, validations: []
@@ -150,6 +152,8 @@ defimpl Validate, for: Type do
     def valid?(T[ is: :integer ], a) when is_integer(a), do: true
     def valid?(T[ is: :float ], a) when is_float(a), do: true
     def valid?(T[ is: :boolean ], a) when is_boolean(a), do: true
+    def valid?(T[ is: :atom, allow_nil: false ], nil) , do: :nil_not_allowed
+    def valid?(T[ is: :atom, allow_undefined: false ], :undefined) , do: :undefined_not_allowed
     def valid?(T[ is: :atom ], a) when is_atom(a), do: true
     def valid?(T[ is: :binary ], a) when is_binary(a), do: true
     def valid?(T[ is: :string ], a) when is_binary(a), do: true

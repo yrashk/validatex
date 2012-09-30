@@ -28,4 +28,14 @@ defmodule Validatex.TypeTest do
   end
   test :nil, do: assert V.valid?(T.new(is: :nil), nil)
 
+  test :allow_nil_atom do
+    assert V.valid?(T.new(is: :atom), nil)
+    assert V.valid?(T.new(is: :atom, allow_nil: false), nil) == :nil_not_allowed
+  end
+
+  test :allow_undefined_atom do
+    assert V.valid?(T.new(is: :atom), :undefined)
+    assert V.valid?(T.new(is: :atom, allow_undefined: false), :undefined) == :undefined_not_allowed
+  end
+
 end
