@@ -168,7 +168,19 @@ end
 
 defimpl Validate, for: Or do
   def valid?(Or[options: options], value) do
-    Enum.any? options, fn(v) -> Validate.valid?(v, value) == true end
+    results =
+    Enum.reduce options, [], 
+                fn(v, acc) ->
+                  unless (res = Validate.valid?(v, value)) == true do
+                    [{v, res}|acc]
+                  else
+                    acc
+                  end
+                end
+    case results do
+      [] -> true
+      _ -> results
+    end
   end
 end
 

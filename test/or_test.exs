@@ -13,12 +13,13 @@ defmodule Validatex.OrTest do
   test :negative do
     is_number = Validatex.Numericality.new
     is_string = Validatex.Type.new(is: :string)
-    assert not V.valid?(Or.new(options: [is_number, is_string]), make_ref)
+    assert List.sort(V.valid?(Or.new(options: [is_number, is_string]), make_ref)) == 
+           List.sort([{is_number, :number_expected},{is_string,false}])
   end  
 
   test :non_false do
     is_atom = Validatex.Type.new(is: :atom, allow_nil: false)
-    assert not V.valid?(Or.new(options: [is_atom]), nil)
+    assert V.valid?(Or.new(options: [is_atom]), nil) == [{is_atom, :nil_not_allowed}]
   end
 
 end
