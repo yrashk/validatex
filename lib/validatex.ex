@@ -42,7 +42,10 @@ defrecord Type,
           allow_nil: false,
           allow_undefined: false
 
-defrecord Union, options: []
+defrecord Union, 
+          options: []
+defrecord All, 
+          options: []          
 defrecord Neg, 
           validation: nil, 
           message: false
@@ -185,6 +188,24 @@ defimpl Validate, for: Union do
     case length(results) do
       ^noptions -> results
       _ -> true
+    end
+  end
+end
+
+defimpl Validate, for: All do
+  def valid?(All[options: options], value) do
+    results =
+    Enum.reduce options, [], 
+                fn(v, acc) ->
+                  unless (res = Validate.valid?(v, value)) == true do
+                    [{v, res}|acc]
+                  else
+                    acc
+                  end
+                end
+    case results do
+      [] -> true
+      _ -> results
     end
   end
 end
