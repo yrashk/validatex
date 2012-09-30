@@ -42,7 +42,7 @@ defrecord Type,
           allow_nil: false,
           allow_undefined: false
 
-defrecord Or, options: []
+defrecord Union, options: []
 
 defprotocol Validate do
   @only [Record, Any]
@@ -165,8 +165,8 @@ defimpl Validate, for: Type do
     def valid?(T[], _), do: false
 end
 
-defimpl Validate, for: Or do
-  def valid?(Or[options: options], value) do
+defimpl Validate, for: Union do
+  def valid?(Union[options: options], value) do
     results =
     Enum.reduce options, [], 
                 fn(v, acc) ->
