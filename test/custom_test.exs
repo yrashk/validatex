@@ -10,7 +10,7 @@ defmodule Validatex.CustomTest do
   end
 
   test :all do
-    assert V.valid?(MyValidator.new, true)
+    assert V.valid?(MyValidator.new, true) == true
     assert V.valid?(MyValidator.new, :something) == :something
   end
 

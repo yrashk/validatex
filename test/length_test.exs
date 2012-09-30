@@ -4,10 +4,6 @@ defmodule Validatex.LengthTest do
   alias Validatex.Length, as: L
   alias Validatex.Range, as: Range
 
-  test :atom do
-    assert V.valid?(L.new(is: 0), :atom)
-  end
-
   test :comparison do
     tests = [{'a', [{1, true},{2, :lesser}, {0, :greater}, {Range.new(from: 0, to: 2), true}]},
              {"a", [{1, true},{2, :lesser}, {0, :greater}, {Range.new(from: 0, to: 2), true}]},

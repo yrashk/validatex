@@ -5,7 +5,7 @@ defmodule Validatex.NegTest do
 
   test :positive do
     is_number = Validatex.Numericality.new
-    assert V.valid?(Neg.new(validation: is_number), "a")
+    assert V.valid?(Neg.new(validation: is_number), "a") == true
   end  
 
   test :negative do

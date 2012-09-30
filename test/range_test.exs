@@ -6,45 +6,45 @@ defmodule Validatex.RangeTest do
   ## until we can use PropEr in Elixir, lets use some
   ## manual testing (unlike in Validaterl)
   test :inclusive do
-    assert inclusive_test(nil, nil, 1)
-    assert inclusive_test(0, 1, 1)
-    assert inclusive_test(0, 1, 2)
-    assert inclusive_test(0, 1, 0.5)
-    assert inclusive_test(0, 1, -0.5)
-    assert inclusive_test(0, 1, :atom)
+    assert inclusive_test(nil, nil, 1) == true
+    assert inclusive_test(0, 1, 1) == true
+    assert inclusive_test(0, 1, 2) == true
+    assert inclusive_test(0, 1, 0.5) == true
+    assert inclusive_test(0, 1, -0.5) == true
+    assert inclusive_test(0, 1, :atom) == true
 
-    assert inclusive_test(0, nil, 1)
-    assert inclusive_test(0, nil, 2)
-    assert inclusive_test(0, nil, 0.5)
-    assert inclusive_test(0, nil, -0.5)
-    assert inclusive_test(0, nil, :atom)
+    assert inclusive_test(0, nil, 1) == true
+    assert inclusive_test(0, nil, 2) == true
+    assert inclusive_test(0, nil, 0.5) == true
+    assert inclusive_test(0, nil, -0.5) == true
+    assert inclusive_test(0, nil, :atom) == true
 
-    assert inclusive_test(nil, 1, 1)
-    assert inclusive_test(nil, 1, 2)
-    assert inclusive_test(nil, 1, 0.5)
-    assert inclusive_test(nil, 1, -0.5)
-    assert inclusive_test(nil, 1, :atom)
+    assert inclusive_test(nil, 1, 1) == true
+    assert inclusive_test(nil, 1, 2) == true
+    assert inclusive_test(nil, 1, 0.5) == true
+    assert inclusive_test(nil, 1, -0.5) == true
+    assert inclusive_test(nil, 1, :atom) == true
   end
 
   test :exclusive do
-    assert exclusive_test(nil, nil, 1)
-    assert exclusive_test(0, 1, 1)
-    assert exclusive_test(0, 1, 2)
-    assert exclusive_test(0, 1, 0.5)
-    assert exclusive_test(0, 1, -0.5)
-    assert exclusive_test(0, 1, :atom)
+    assert exclusive_test(nil, nil, 1) == true
+    assert exclusive_test(0, 1, 1) == true
+    assert exclusive_test(0, 1, 2) == true
+    assert exclusive_test(0, 1, 0.5) == true
+    assert exclusive_test(0, 1, -0.5) == true
+    assert exclusive_test(0, 1, :atom) == true
 
-    assert exclusive_test(0, nil, 1)
-    assert exclusive_test(0, nil, 2)
-    assert exclusive_test(0, nil, 0.5)
-    assert exclusive_test(0, nil, -0.5)
-    assert exclusive_test(0, nil, :atom)
+    assert exclusive_test(0, nil, 1) == true
+    assert exclusive_test(0, nil, 2) == true
+    assert exclusive_test(0, nil, 0.5) == true
+    assert exclusive_test(0, nil, -0.5) == true
+    assert exclusive_test(0, nil, :atom) == true
 
-    assert exclusive_test(nil, 1, 1)
-    assert exclusive_test(nil, 1, 2)
-    assert exclusive_test(nil, 1, 0.5)
-    assert exclusive_test(nil, 1, -0.5)
-    assert exclusive_test(nil, 1, :atom)
+    assert exclusive_test(nil, 1, 1) == true
+    assert exclusive_test(nil, 1, 2) == true
+    assert exclusive_test(nil, 1, 0.5) == true
+    assert exclusive_test(nil, 1, -0.5) == true
+    assert exclusive_test(nil, 1, :atom) == true
   end
 
   defp inclusive_test(from, to, value) do

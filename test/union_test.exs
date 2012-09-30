@@ -7,8 +7,8 @@ defmodule Validatex.UnionTest do
     is_number = Validatex.Numericality.new
     is_string = Validatex.Type.new(is: :string)
     is_atom = Validatex.Type.new(is: :atom)
-    assert V.valid?(Union.new(options: [is_number, is_string, is_atom]), 1)
-    assert V.valid?(Union.new(options: [is_number, is_string, is_atom]), "1")
+    assert V.valid?(Union.new(options: [is_number, is_string, is_atom]), 1) == true
+    assert V.valid?(Union.new(options: [is_number, is_string, is_atom]), "1") == true
   end  
 
   test :negative do
