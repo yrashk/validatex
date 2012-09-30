@@ -40,6 +40,8 @@ defrecord Length,
 defrecord Type,
           is: nil
 
+defrecord Or, options: []
+
 defprotocol Validate do
   @only [Record, Any]
   def valid?(validator, data)
@@ -157,6 +159,12 @@ defimpl Validate, for: Type do
     def valid?(T[ is: :tuple ], a) when is_tuple(a), do: true
     def valid?(T[ is: :list ], a) when is_list(a), do: true
     def valid?(T[], _), do: false
+end
+
+defimpl Validate, for: Or do
+  def valid?(Or[options: options], value) do
+    Enum.any? options, fn(v) -> Validate.valid?(v, value) end
+  end
 end
 
 defimpl Validate, for: Any do
