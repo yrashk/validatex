@@ -176,9 +176,10 @@ defimpl Validate, for: Union do
                     acc
                   end
                 end
-    case results do
-      [] -> true
-      _ -> results
+    noptions = length(options)              
+    case length(results) do
+      ^noptions -> results
+      _ -> true
     end
   end
 end
