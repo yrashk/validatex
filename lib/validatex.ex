@@ -41,6 +41,7 @@ defrecord Type,
           is: nil
 
 defrecord Or, options: []
+defrecord And, validations: []
 
 defprotocol Validate do
   @only [Record, Any]
@@ -164,6 +165,12 @@ end
 defimpl Validate, for: Or do
   def valid?(Or[options: options], value) do
     Enum.any? options, fn(v) -> Validate.valid?(v, value) end
+  end
+end
+
+defimpl Validate, for: And do
+  def valid?(And[validations: validations], value) do
+    Enum.all? validations, fn(v) -> Validate.valid?(v, value) end
   end
 end
 
