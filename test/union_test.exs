@@ -14,8 +14,8 @@ defmodule Validatex.UnionTest do
   test :negative do
     is_number = Validatex.Numericality.new
     is_string = Validatex.Type.new(is: :string)
-    assert List.sort(V.valid?(Union.new(options: [is_number, is_string]), make_ref)) == 
-           List.sort([{is_number, :number_expected},{is_string,false}])
+    assert Enum.sort(V.valid?(Union.new(options: [is_number, is_string]), make_ref)) == 
+           Enum.sort([{is_number, :number_expected},{is_string,false}])
   end  
 
   test :non_false do
