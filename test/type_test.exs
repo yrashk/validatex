@@ -19,7 +19,7 @@ defmodule Validatex.TypeTest do
   test :ref, do: assert V.valid?(T.new(is: :reference), make_ref()) == true
   test :fun, do: assert V.valid?(T.new(is: :function), fn () -> :ok end) == true
   test :port, do: assert V.valid?(T.new(is: :port), hd(:erlang.ports)) == true
-  test :pid, do: assert V.valid?(T.new(is: :pid), Process.self) == true
+  test :pid, do: assert V.valid?(T.new(is: :pid), self) == true
   test :tuple, do: assert V.valid?(T.new(is: :tuple), {}) == true
   test :list, do: assert V.valid?(T.new(is: :list), []) == true
   test :boolean do
