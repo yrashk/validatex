@@ -4,7 +4,7 @@ def validate(plan) do
     results = lc {name, value, spec} inlist plan do
       {name, value, spec, Validatex.Validate.valid?(spec, value)}
     end
-    only_errors = function do
+    only_errors = fn
         {_, _, _, true} -> false
         _ -> true
     end
@@ -70,7 +70,7 @@ defimpl Validate, for: Numericality do
   def valid?(N[ allow_string: true, allow_empty: true, default: default] = v,  ""), do: valid?(v, default)     
   def valid?(N[ allow_string: false ], s) when is_binary(s), do: :string_not_allowed
   def valid?(N[ allow_string: true, allow_rest: rest ] = v, s) when is_binary(s) do
-      str = binary_to_list(s)
+      str = String.to_char_list!(s)
       case :string.to_integer(str) do
           {:error, :no_integer} ->
             :number_expected
