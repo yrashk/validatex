@@ -144,8 +144,8 @@ defimpl Validate, for: Length do
       Validatex.Validate.valid?(validator, size(v))
   end
 
-  def valid?(L[is: validator], _) do
-      Validatex.Validate.valid?(validator)
+  def valid?(L[is: validator], data) do
+      Validatex.Validate.valid?(validator, data)
   end
 
 end
